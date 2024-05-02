@@ -42,4 +42,9 @@ public class Album {
     public void setRelease_year(int release_year) {
         this.release_year = release_year;
     }
+
+    @Override
+    public String toString() {
+        return title + " (" + release_year + ")";
+    }
 }

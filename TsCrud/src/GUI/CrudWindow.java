@@ -2,17 +2,18 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class CrudWindow extends JFrame {
+public class CrudWindow extends JFrame implements ActionListener {
 
     public JButton albumsButton;
     public JButton songsButton;
     public JTextArea pageTitle;
-    public ImageIcon imageIcon;
     public GroupLayout gl;
 
     public CrudWindow() throws HeadlessException {
-        super();
+        super("TS Crud");
         this.init();
     }
 
@@ -57,6 +58,13 @@ public class CrudWindow extends JFrame {
                         )
         );
         setLayout(gl);
-        pack(); // Ajusta el tamaño de la ventana al tamaño del paquete
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
 }

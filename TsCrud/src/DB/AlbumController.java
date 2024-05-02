@@ -28,7 +28,8 @@ public class AlbumController extends DBConnection{
     }
 
     public ArrayList<Album> getAll() {
-        ArrayList<Album> albums = new ArrayList<Album>();
+        ArrayList<Album> albums;
+        albums = new ArrayList<Album>();
         try {
             ps = getCon().prepareStatement("Select * from album");
             rs = ps.executeQuery();
