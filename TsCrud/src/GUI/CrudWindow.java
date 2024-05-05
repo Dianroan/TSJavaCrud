@@ -5,12 +5,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CrudWindow extends JFrame implements ActionListener {
+public class CrudWindow extends JFrame {
 
-    public JButton albumsButton;
-    public JButton songsButton;
-    public JTextArea pageTitle;
-    public GroupLayout gl;
+    public JButton albumButton;
+    public JButton songButton;
 
     public CrudWindow() throws HeadlessException {
         super("TS Crud");
@@ -18,53 +16,57 @@ public class CrudWindow extends JFrame implements ActionListener {
     }
 
     public void init(){
-        this.setTitle("Taylor Swift Crud");
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        albumsButton = new JButton("Albums");
-        songsButton = new JButton("Songs");
-        pageTitle = new JTextArea();
-        gl = new GroupLayout(getContentPane());
+        JLabel label = new JLabel("Taylor Swift Crud");
+        label.setFont(new Font("Arial", Font.BOLD, 24));
 
-        JButton a,b,c,d;
-        a = new JButton("1");
-        b = new JButton("2");
-        c = new JButton("3");
-        d = new JButton("4");
+        albumButton = new JButton("Albums");
+        albumButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                openAlbumWindow();
+            }
+        });
 
+        songButton = new JButton("Songs");
+        songButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                openSongWindow();
+            }
+        });
 
-        // Añade una separación entre los botones
-        gl.setAutoCreateContainerGaps(true); // Coloca un espacio entre los componentes y la ventana
-        // gl.setAutoCreateGaps(true); // Coloca un espacio entre los componentes hacia la derecha y hacia abajo
-        gl.setHorizontalGroup(
-                gl.createParallelGroup()
-                        .addComponent(a,100,100,100)
-                        .addComponent(b,100,100,100)
-                        .addGroup(
-                                gl.createSequentialGroup()
-                                        .addComponent(c)
-                                        .addComponent(d)
-                        )
+        GroupLayout layout = new GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
+
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                        .addComponent(label)
+                        .addComponent(albumButton)
+                        .addComponent(songButton)
         );
-        gl.setVerticalGroup(
-                gl.createSequentialGroup()
-                        .addComponent(a,100,100,100)
-                        .addComponent(b,100,100,100)
-                        .addGroup(
-                                gl.createParallelGroup()
-                                        .addComponent(c)
-                                        .addComponent(d)
 
-                        )
+        layout.setVerticalGroup(
+                layout.createSequentialGroup()
+                        .addComponent(label)
+                        .addGap(20)
+                        .addComponent(albumButton)
+                        .addGap(10)
+                        .addComponent(songButton)
         );
-        setLayout(gl);
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
     }
+    private void openAlbumWindow() {
+        new AlbumWindow();
+        dispose();
+    }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
+    private void openSongWindow() {
+        new SongWindow();
+        dispose();
     }
 }

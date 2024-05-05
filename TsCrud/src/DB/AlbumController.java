@@ -66,4 +66,22 @@ public class AlbumController extends DBConnection{
             Logger.getLogger(AlbumController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public int getIdByTitle(String title){
+        Album album;
+        album = new Album();
+        PreparedStatement ps;
+        ResultSet rs;
+        try {
+            ps = getCon().prepareStatement("Select id from album where title = ?");
+            ps.setString(1,title);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                album.setId(rs.getInt("id"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AlbumController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return album.getId();
+    }
 }

@@ -18,8 +18,8 @@ public class SongController extends DBConnection{
 
     public void add(Song song) {
         try {
-            ps = getCon().prepareStatement("INSERT INTO Song (album_id, title, duration) VALUES (?,?,?");
-            ps.setInt(1, song.getAlbum().getId());
+            ps = getCon().prepareStatement("INSERT INTO Song (album_id, title, duration) VALUES (?,?,?)");
+            ps.setInt(1, song.getAlbum_id());
             ps.setString(2, song.getTitle());
             ps.setInt(3, song.getDuration());
             ps.executeUpdate();
@@ -36,7 +36,7 @@ public class SongController extends DBConnection{
             while (rs.next()) {
                 Song song = new Song();
                 song.setId(rs.getInt("id"));
-                song.setId(rs.getInt("album_id"));
+                song.setAlbum_id(rs.getInt("album_id"));
                 song.setTitle(rs.getString("title"));
                 song.setDuration(rs.getInt("duration"));
                 songs.add(song);
@@ -49,10 +49,11 @@ public class SongController extends DBConnection{
 
     public void update(Song song) {
         try {
-            ps = getCon().prepareStatement("UPDATE Song SET title = ?, duration = ? WHERE id = ?");
+            ps = getCon().prepareStatement("UPDATE Song SET title = ?, duration = ?, album_id = ? WHERE id = ?");
             ps.setString(1, song.getTitle());
             ps.setInt(2, song.getDuration());
-            ps.setInt(3,song.getId());
+            ps.setInt(3,song.getAlbum_id());
+            ps.setInt(4,song.getId());
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(SongController.class.getName()).log(Level.SEVERE, null, ex);

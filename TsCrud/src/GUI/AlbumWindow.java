@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class AlbumWindow extends JFrame {
     private JLabel titleLabel, yearLabel;
     private JTextField titleField, yearField;
-    private JButton addButton, updateButton, deleteButton;
+    private JButton addButton, updateButton, deleteButton, getBackButton;
     private JList<Album> albumList;
     private DefaultListModel<Album> listModel;
     private ArrayList<Album> albums;
@@ -20,10 +20,6 @@ public class AlbumWindow extends JFrame {
         this.init();
     }
 
-    /*public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new AlbumWindow());
-    }
-*/
     public void init(){
         this.setTitle("Taylor Swift Crud");
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -31,13 +27,18 @@ public class AlbumWindow extends JFrame {
 
         this.titleLabel = new JLabel("Title: ");
         this.yearLabel = new JLabel("Release Year: ");
+
         this.titleField = new JTextField(20);
         this.yearField = new JTextField(10);
+
         this.addButton = new JButton("Add");
         this.updateButton = new JButton("Update");
         this.deleteButton = new JButton("Delete");
+        this.getBackButton = new JButton("Back");
+
         this.albumController = new AlbumController();
         this.albums = this.albumController.getAll();
+
         this.listModel = new DefaultListModel<>();
         this.albumList = new JList<>(listModel);
         this.albumList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -78,6 +79,7 @@ public class AlbumWindow extends JFrame {
                         )
                 )
                 .addComponent(albumList)
+                        .addComponent(getBackButton)
         );
 
         layout.setVerticalGroup(
@@ -99,15 +101,23 @@ public class AlbumWindow extends JFrame {
                         .addComponent(deleteButton)
                 )
                 .addComponent(albumList)
+                        .addComponent(getBackButton)
         );
 
         this.addButton.addActionListener(e -> addAlbum());
         this.updateButton.addActionListener(e -> updateAlbum());
         this.deleteButton.addActionListener(e -> deleteAlbum());
+        this.getBackButton.addActionListener(e -> getBack());
+
         this.updateList();
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    private void getBack() {
+        new CrudWindow();
+        dispose();
     }
 
     private void addAlbum() {
